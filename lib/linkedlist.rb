@@ -91,12 +91,41 @@ class LinkedList
   def to_s
     #( value ) -> ( value ) -> ( value ) -> nil
     current = @head
-
     while current
       print "(#{current.value}) -> "
       current = current.next_node
     end
 
+  end
+
+  def insert_at(value, index)
+    new_node = Node.new(value)
+
+    if !@head
+      @head = new_node
+      @head.next_node = nil
+      return
+    end
+
+    if index == 0
+      temp = @head
+      @head = new_node
+      @head.next_node = temp
+      return
+    end
+
+    current = @head
+    count = 1
+    while index > count
+      current = current.next_node
+      count += 1
+
+    end
+    #p current.value
+    temp = current.next_node
+    current.next_node = new_node
+    new_node.next_node = temp
+    return
   end
 
 
@@ -122,6 +151,8 @@ test.prepend(5)
 test.append(20)
 p test.find(20)
 
+p test.to_s
+p test.insert_at(0,0)
 p test.to_s
 
 =begin

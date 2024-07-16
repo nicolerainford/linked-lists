@@ -66,8 +66,18 @@ class LinkedList
   end
 
   def contains?(value)
-    
-   end
+    #iterate thru and look at values. if current.value matches input param return true
+
+    return false if @head == nil
+    current = @head
+    while current
+
+      return true if current.value == value
+      current = current.next_node
+    end
+    false
+
+  end
 
 
 end
@@ -83,6 +93,13 @@ p list.tail.value
 p 'break'
 list.pop
 p list.tail.value
+p "b"
+
+test = LinkedList.new
+test.append(10)
+p test.contains?(10)
+
+=begin
 
 # node1 = Node.new(10)
 # puts node1.value
@@ -90,6 +107,7 @@ p list.tail.value
 # node2 = Node.new(20)
 # node1.next_node = node2
 # puts node1.next_node.value
-#
+
 # node3 = Node.new(30)
 # puts node2.next_node
+=end

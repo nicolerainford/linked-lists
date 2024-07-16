@@ -33,6 +33,7 @@ class LinkedList
       @head.next_node = temp
     end
     @size += 1
+
   end
 
   def at(index)
@@ -108,17 +109,16 @@ class LinkedList
     if !@head
       @head = new_node
       @head.next_node = nil
+      @size += 1
       return
     end
 
     if index == 0
-      prepend(value)
-      return
+     return prepend(value)
     end
 
     if index == @size
-      append(value)
-      return
+      return append(value)
     end
 
     current = @head
@@ -132,12 +132,42 @@ class LinkedList
     current.next_node = new_node
     new_node.next_node = temp
     @size += 1
-    return
-  end
+
+
+   end
+
+
+    def remove_at(index)
+
+     #need to stop at 1 before index skip one then go to one after index so i can do prev.next_node = after_index
+      if index < 0 || index >= @size
+        raise IndexError, "Index out of bounds"
+      end
+
+      if index == 0
+        @head = @head.next_node
+        @size -= 1
+        @tail = nil if @size == 0
+        return
+      end
+
+      current = @head
+      count = 0
+      while count < index - 1
+        current = current.next_node
+        count += 1
+      end
+
+      node_to_remove = current.next_node
+      current.next_node = node_to_remove.next_node
+      @tail = current if node_to_remove == @tail
+      @size -= 1
+    end
 
 
 end
 
+=begin
 list = LinkedList.new
 list.append(10)
 list.append(20)
@@ -150,6 +180,8 @@ p 'break'
 list.pop
 p list.tail.value
 p "b"
+=end
+
 
 test = LinkedList.new
 test.append(10)
@@ -159,7 +191,9 @@ test.append(20)
 p test.find(20)
 
 p test.to_s
-p test.insert_at(0,0)
+test.insert_at(0,0)
+p test.to_s
+test.remove_at(2)
 p test.to_s
 
 =begin

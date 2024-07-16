@@ -100,6 +100,10 @@ class LinkedList
 
   def insert_at(value, index)
     new_node = Node.new(value)
+    #handle index input error
+    if index < 0 || index > @size
+      raise IndexError, "Index out of bounds"
+    end
 
     if !@head
       @head = new_node
@@ -108,9 +112,12 @@ class LinkedList
     end
 
     if index == 0
-      temp = @head
-      @head = new_node
-      @head.next_node = temp
+      prepend(value)
+      return
+    end
+
+    if index == @size
+      append(value)
       return
     end
 
@@ -119,12 +126,12 @@ class LinkedList
     while index > count
       current = current.next_node
       count += 1
-
     end
     #p current.value
     temp = current.next_node
     current.next_node = new_node
     new_node.next_node = temp
+    @size += 1
     return
   end
 

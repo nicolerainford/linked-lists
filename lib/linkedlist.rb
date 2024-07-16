@@ -67,15 +67,35 @@ class LinkedList
 
   def contains?(value)
     #iterate thru and look at values. if current.value matches input param return true
-
     return false if @head == nil
     current = @head
     while current
-
       return true if current.value == value
       current = current.next_node
     end
     false
+  end
+
+  def find(value)
+    #return index of given value or nil if not found
+    return nil if @head == nil
+    current = @head
+    index = 0
+    while current
+      return index if current.value == value
+      current = current.next_node
+      index += 1
+    end
+  end
+
+  def to_s
+    #( value ) -> ( value ) -> ( value ) -> nil
+    current = @head
+
+    while current
+      print "(#{current.value}) -> "
+      current = current.next_node
+    end
 
   end
 
@@ -98,6 +118,11 @@ p "b"
 test = LinkedList.new
 test.append(10)
 p test.contains?(10)
+test.prepend(5)
+test.append(20)
+p test.find(20)
+
+p test.to_s
 
 =begin
 
